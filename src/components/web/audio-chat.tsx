@@ -19,6 +19,7 @@ export function AudioChatComponent() {
 
   const connect = useCallback(async () => {
     if (socketRef.current && socketRef.current.readyState !== WebSocket.CLOSED) {
+      console.log("HERE IS CLOSING PLACE");
       socketRef.current.close();
     }
 
