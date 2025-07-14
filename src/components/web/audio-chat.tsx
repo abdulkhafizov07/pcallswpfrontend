@@ -17,17 +17,14 @@ export function AudioChatComponent() {
   const socketRef = useRef<WebSocket | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
 
-  // Reusable connect handler
   const connect = useCallback(async () => {
-    // Disconnect old socket if exists
     if (socketRef.current && socketRef.current.readyState !== WebSocket.CLOSED) {
       socketRef.current.close();
     }
 
     setStatus('connecting');
 
-    // Setup new WebSocket
-    const ws = new WebSocket(`ws://${window.location.hostname}:4531/vc`);
+    const ws = new WebSocket(`wss://api.infinite-co.uz/vc`);
     socketRef.current = ws;
 
     ws.addEventListener('open', () => {
@@ -61,14 +58,13 @@ export function AudioChatComponent() {
         }
       };
 
-      recorder.start(150); // send audio chunk every 150ms
+      recorder.start(200);
     } catch (err) {
       console.error('🚫 Microphone access error:', err);
       setStatus('error');
     }
   }, []);
 
-  // Auto-connect on mount
   useEffect(() => {
     if (typeof window !== 'undefined' && typeof navigator.mediaDevices?.getUserMedia === 'function') {
       connect();
