@@ -24,7 +24,7 @@ export function AudioChatComponent() {
 
     setStatus('connecting');
 
-    const ws = new WebSocket(`wss://api.infinite-co.uz/vc`);
+    const ws = new WebSocket(`wss://api.pcalls.infinite-co.uz/vc`);
     socketRef.current = ws;
 
     ws.addEventListener('open', () => {
