@@ -70,7 +70,7 @@ export function AudioChatComponent() {
 
   // Auto-connect on mount
   useEffect(() => {
-    if (typeof window !== 'undefined' && navigator.mediaDevices?.getUserMedia) {
+    if (typeof window !== 'undefined' && typeof navigator.mediaDevices?.getUserMedia === 'function') {
       connect();
 
       return () => {
